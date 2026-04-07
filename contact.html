@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Контакты | СтройМастер</title>
+    <meta name="description" content="Свяжитесь с нами: телефон, email, адрес офиса. Бесплатная консультация по строительству и ремонту.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        /* Специальные стили для contact.html */
+        .hero-contact {
+            min-height: 60vh;
+            background: linear-gradient(135deg, #1a2a32 0%, #0f1a20 100%);
+        }
+        
+        /* Контактная информация */
+        .contact-info {
+            padding: 80px 0;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .contact-card {
+            background: var(--white);
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .contact-card__icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(196,69,27,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .contact-card__icon i {
+            font-size: 32px;
+            color: var(--primary);
+        }
+        
+        .contact-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .contact-card p {
+            color: var(--gray);
+            line-height: 1.5;
+        }
+        
+        .contact-card a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-card a:hover {
+            color: var(--primary);
+        }
+        
+        /* Форма и карта */
+        .contact-form-section {
+            background: var(--light);
+            padding: 80px 0;
+        }
+        
+        .form-map-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        
+        .contact-form-box {
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .contact-form-box h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .contact-form-box p {
+            color: var(--gray);
+            margin-bottom: 32px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .map-box {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .map-box iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+        
+        .map-info {
+            padding: 24px;
+            background: var(--white);
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        /* Режим работы */
+        .work-hours {
+            margin-top: 60px;
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .hours-grid {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+        
+        .hours-item {
+            text-align: center;
+        }
+        
+        .hours-item .day {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .hours-item .time {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        @media (max-width: 1024px) {
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-map-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .contact-form-box {
+                padding: 24px;
+            }
+            
+            .hours-grid {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Logo/Logo.png" alt="СтройМастер" class="logo-img">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </a>
+                </div>
+                
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html" class="active">Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header__actions">
+                    <a href="tel:+380501234567" class="phone-link">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+38 (050) 123-45-67</span>
+                    </a>
+                    <button class="btn btn-primary btn-call" data-modal="callback">Заказать звонок</button>
+                    <button class="mobile-menu-toggle" aria-label="Меню">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="container">
+        <div class="hero__content">
+            <span class="hero__badge">Свяжитесь с нами</span>
+            <h1>Мы всегда<br>на связи</h1>
+            <p class="hero__desc">Ответим на любые вопросы, проконсультируем по проектам, поможем с выбором</p>
+        </div>
+    </div>
+    <div class="scroll-down">
+        <a href="#contact"><i class="fas fa-chevron-down"></i></a>
+    </div>
+</section>
+
+        <!-- Контактная информация -->
+        <section class="contact-info">
+            <div class="container">
+                <div class="contact-grid" data-aos="fade-up">
+                    <div class="contact-card">
+                        <div class="contact-card__icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3>Телефон</h3>
+                        <p><a href="tel:+380501234567">+38 (050) 123-45-67</a></p>
+                        <p><a href="tel:+380671234567">+38 (067) 123-45-67</a></p>
+                        <p><small>Бесплатно по Украине</small></p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-card__icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email</h3>
+                        <p><a href="mailto:info@stroymaster.ua">info@stroymaster.ua</a></p>
+                        <p><a href="mailto:project@stroymaster.ua">project@stroymaster.ua</a></p>
+                        <p><small>Ответим в течение 24 часов</small></p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-card__icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Адрес офиса</h3>
+                        <p>г. Киев, ул. Строительная, 15</p>
+                        <p>БЦ "СтройПарк", офис 407</p>
+                        <p><small>Пн-Пт: 9:00 - 19:00</small></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Форма и карта -->
+        <section class="contact-form-section">
+            <div class="container">
+                <div class="form-map-grid" data-aos="fade-up">
+                    <div class="contact-form-box">
+                        <h2>Отправить сообщение</h2>
+                        <p>Заполните форму, и мы свяжемся с вами в ближайшее время</p>
+                        
+                        <form id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Ваше имя" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" placeholder="+38 (___) ___-__-__" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <select>
+                                    <option>Тема обращения</option>
+                                    <option>Консультация по строительству</option>
+                                    <option>Расчёт стоимости</option>
+                                    <option>Готовый проект</option>
+                                    <option>Другое</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea rows="5" placeholder="Ваше сообщение..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-large">Отправить сообщение</button>
+                        </form>
+                    </div>
+                    
+                    <div class="map-box">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2541.780520166028!2d30.523240315731205!3d50.442605279475265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cefc6fea3e2f%3A0x9e2f8c9b8a2e3a1f!2z0JrQuNC10LIsINCj0LrRgNCw0LjQvdCw!5e0!3m2!1sru!2sru!4v1700000000000!5m2!1sru!2sru" allowfullscreen="" loading="lazy"></iframe>
+                        <div class="map-info">
+                            <p><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> г. Киев, ул. Строительная, 15</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Режим работы -->
+                <div class="work-hours" data-aos="fade-up" data-aos-delay="100">
+                    <h3>Режим работы</h3>
+                    <div class="hours-grid">
+                        <div class="hours-item">
+                            <div class="day">Понедельник - Пятница</div>
+                            <div class="time">9:00 - 19:00</div>
+                        </div>
+                        <div class="hours-item">
+                            <div class="day">Суббота</div>
+                            <div class="time">10:00 - 16:00</div>
+                        </div>
+                        <div class="hours-item">
+                            <div class="day">Воскресенье</div>
+                            <div class="time">Выходной</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta cta--skeuomorphic">
+            <div class="container">
+                <div class="cta__inner" data-aos="zoom-in">
+                    <h2>Нужна консультация прямо сейчас?</h2>
+                    <p>Оставьте заявку, и мы перезвоним в течение 15 минут</p>
+                    <form class="cta__form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="+38 (___) ___-__-__" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large">Перезвоните мне</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <div class="logo">
+                        <img src="images/logo-white.svg" alt="СтройМастер" class="logo-img" onerror="this.style.display='none'">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </div>
+                    <p>Строим дома вашей мечты с 2009 года. Надёжно, качественно, в срок.</p>
+                    <div class="footer__social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer__col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Контакты</h4>
+                    <ul class="footer__contacts">
+                        <li><i class="fas fa-phone"></i> +38 (050) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@stroymaster.ua</li>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Киев, ул. Строительная, 15</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 СтройМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модалки -->
+    <div class="modal" id="callbackModal">
+        <div class="modal__content">
+            <button class="modal__close">&times;</button>
+            <h3>Заказать звонок</h3>
+            <form>
+                <div class="form-group"><input type="text" placeholder="Ваше имя" required></div>
+                <div class="form-group"><input type="tel" placeholder="+38 (___) ___-__-__" required></div>
+                <button type="submit" class="btn btn-primary">Перезвоните мне</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/form-handler.js"></script>
+    
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Добавляем стили для textarea
+        const style = document.createElement('style');
+        style.textContent = `
+            textarea {
+                width: 100%;
+                padding: 14px 16px;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                font-family: inherit;
+                font-size: 16px;
+                resize: vertical;
+            }
+            textarea:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px rgba(196,69,27,0.1);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

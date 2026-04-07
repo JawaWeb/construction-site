@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>СтройМастер | Строительство домов под ключ</title>
+    <meta name="description" content="Строительство домов, коттеджей, ремонт и отделка под ключ. Гарантия качества, опыт 15 лет.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        /* Стили для hero с видео */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding-top: 100px;
+            padding-bottom: 80px;
+        }
+        
+        /* Видео фон */
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            animation: videoFadeIn 1.2s ease-out;
+        }
+        
+        @keyframes videoFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Затемнение */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+            animation: overlayFadeIn 1s ease-out;
+        }
+        
+        @keyframes overlayFadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero__content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero__badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 14px;
+            margin-bottom: 24px;
+            color: #fff;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff, #ffe0b5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .hero__desc {
+            font-size: 18px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero__buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        
+        .hero__stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.4s ease-out;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            font-family: var(--font-heading);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-down a {
+            color: #fff;
+            font-size: 32px;
+            transition: all 0.3s;
+        }
+        
+        .scroll-down a:hover {
+            color: rgba(255,255,255,0.8);
+            transform: translateY(5px);
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero__desc {
+                font-size: 16px;
+            }
+            .hero__buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .hero__stats {
+                gap: 30px;
+            }
+            .scroll-down {
+                bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Logo/Logo.png" alt="СтройМастер" class="logo-img" onerror="this.style.display='none'">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </a>
+                </div>
+                
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header__actions">
+                    <a href="tel:+380501234567" class="phone-link">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+38 (050) 123-45-67</span>
+                    </a>
+                    <button class="btn btn-primary btn-call" data-modal="callback">Заказать звонок</button>
+                    <button class="mobile-menu-toggle" aria-label="Меню">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero секция с фоновым видео -->
+        <section class="hero">
+            <video class="hero-video" autoplay loop muted playsinline>
+                <source src="images/hero/video.mp4" type="video/mp4">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format" alt="Строительство">
+            </video>
+            
+            <div class="container">
+                <div class="hero__content">
+                    <h1>Строим дома<br>под ваши проекты</h1>
+                    <p class="hero__desc">Создаём надёжные и стильные дома с 2009 года. Индивидуальные проекты, современные технологии и честные цены.</p>
+                    <div class="hero__buttons">
+                        <button class="btn btn-primary btn-xl" data-modal="consultation">Получить консультацию</button>
+                        <button class="btn btn-outline btn-xl" onclick="window.location.href='projects.html'">Портфолио</button>
+                    </div>
+                    <div class="hero__stats">
+                        <div class="stat-item">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label">лет опыта</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">120+</span>
+                            <span class="stat-label">построенных домов</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">гарантия качества</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-down">
+                <a href="#services"><i class="fas fa-chevron-down"></i></a>
+            </div>
+        </section>
+
+        <!-- Services Bento Grid Section -->
+        <section id="services" class="services bento-section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag">Что мы предлагаем</span>
+                    <h2 class="section-title">Комплексные <span>строительные</span> решения</h2>
+                    <p class="section-desc">От проекта до ключа — берём на себя все этапы строительства</p>
+                </div>
+                
+                <div class="bento-grid" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bento-card bento-card--large bento-card--skeuomorphic" data-service="design">
+                        <div class="bento-card__icon">
+                            <i class="fas fa-drafting-compass"></i>
+                        </div>
+                        <h3>Проектирование</h3>
+                        <p>Индивидуальные архитектурные решения с учётом всех пожеланий и особенностей участка.</p>
+                        <a href="#" class="link-arrow service-link" data-service="design">Подробнее <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="bento-card bento-card--material" data-service="construction">
+                        <div class="bento-card__icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <h3>Строительство</h3>
+                        <p>Кирпич, газобетон, монолит — любые технологии с гарантией качества.</p>
+                        <a href="#" class="link-arrow service-link" data-service="construction">Подробнее</a>
+                    </div>
+                    
+                    <div class="bento-card bento-card--material" data-service="finishing">
+                        <div class="bento-card__icon">
+                            <i class="fas fa-paint-roller"></i>
+                        </div>
+                        <h3>Отделка</h3>
+                        <p>Черновая, чистовая, дизайнерский ремонт под ключ.</p>
+                        <a href="#" class="link-arrow service-link" data-service="finishing">Подробнее</a>
+                    </div>
+                    
+                    <div class="bento-card bento-card--typography" data-service="landscape">
+                        <div class="bento-card__icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <h3>Ландшафт</h3>
+                        <p>Благоустройство территории, озеленение, зоны отдыха.</p>
+                        <a href="#" class="link-arrow service-link" data-service="landscape">Подробнее</a>
+                    </div>
+                    
+                    <div class="bento-card bento-card--skeuomorphic" data-service="supervision">
+                        <div class="bento-card__icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Технадзор</h3>
+                        <p>Авторский надзор, контроль качества на всех этапах.</p>
+                        <a href="#" class="link-arrow service-link" data-service="supervision">Подробнее</a>
+                    </div>
+                    
+                    <div class="bento-card bento-card--large bento-card--material" data-service="projects">
+                        <div class="bento-card__icon">
+                            <i class="fas fa-ruler-combined"></i>
+                        </div>
+                        <h3>Готовые проекты</h3>
+                        <p>Более 50 типовых проектов домов с возможностью адаптации.</p>
+                        <a href="#" class="link-arrow service-link" data-service="projects">Смотреть проекты</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag">Наши работы</span>
+                    <h2 class="section-title">Реализованные <span>проекты</span></h2>
+                    <p class="section-desc">Каждый дом — это уникальная история</p>
+                </div>
+                
+                <div class="projects__filter" data-aos="fade-up">
+                    <button class="filter-btn active" data-filter="all">Все проекты</button>
+                    <button class="filter-btn" data-filter="house">Коттеджи</button>
+                    <button class="filter-btn" data-filter="townhouse">Таунхаусы</button>
+                    <button class="filter-btn" data-filter="repair">Ремонт</button>
+                </div>
+                
+                <div class="projects__grid" id="projectsGrid" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Проекты будут загружены через JS -->
+                </div>
+                
+                <div class="projects__more" data-aos="fade-up">
+                    <a href="projects.html" class="btn btn-outline">Все проекты <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography Section - About -->
+        <section class="about-typography">
+            <div class="container">
+                <div class="about-typography__inner" data-aos="fade-right">
+                    <div class="about-typography__content">
+                        <span class="section-tag">О компании</span>
+                        <h2>Строим дома,<br>в которые хочется возвращаться</h2>
+                        <p class="lead">СтройМастер — это команда профессионалов, объединённая любовью к своему делу и уважением к клиентам.</p>
+                        <p>За 15 лет работы мы построили более 120 домов, каждый из которых стал для семьи настоящим домом. Мы используем только проверенные материалы, современные технологии и всегда держим руку на пульсе.</p>
+                        <div class="about-typography__features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Соблюдение сроков</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Фиксированная смета</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Гарантия 5 лет</span>
+                            </div>
+                        </div>
+                        <a href="about.html" class="btn btn-primary">Подробнее о компании</a>
+                    </div>
+                    <div class="about-typography__image" data-aos="fade-left">
+                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format" alt="О компании">
+                        <div class="experience-badge">
+                            <span class="years">15</span>
+                            <span class="text">лет<br>успешной<br>работы</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section class="blog">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag">Блог</span>
+                    <h2 class="section-title">Полезные <span>статьи</span></h2>
+                    <p class="section-desc">Советы экспертов, новости строительства и вдохновение</p>
+                </div>
+                
+                <div class="blog__grid" id="blogGrid" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Статьи будут загружены через JS -->
+                </div>
+                
+                <div class="blog__more" data-aos="fade-up">
+                    <a href="blog.html" class="btn btn-outline">Все статьи <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section - Skeuomorphism -->
+        <section class="cta cta--skeuomorphic">
+            <div class="container">
+                <div class="cta__inner" data-aos="zoom-in">
+                    <h2>Готовы начать строительство?</h2>
+                    <p>Оставьте заявку, и мы бесплатно проконсультируем вас по всем вопросам</p>
+                    <form class="cta__form" id="ctaForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="+38 (___) ___-__-__" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large">Получить консультацию</button>
+                    </form>
+                    <p class="cta__note">Никакого спама, только полезная информация</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <div class="logo">
+                        <img src="images/logo-white.svg" alt="СтройМастер" class="logo-img" onerror="this.style.display='none'">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </div>
+                    <p>Строим дома вашей мечты с 2009 года. Надёжно, качественно, в срок.</p>
+                    <div class="footer__social">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer__col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Контакты</h4>
+                    <ul class="footer__contacts">
+                        <li><i class="fas fa-phone"></i> <a href="tel:+380501234567">+38 (050) 123-45-67</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:info@stroymaster.ua">info@stroymaster.ua</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Киев, ул. Строительная, 15</li>
+                        <li><i class="fas fa-clock"></i> Пн-Пт: 9:00 - 19:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 СтройМастер. Все права защищены.</p>
+                <a href="#">Политика конфиденциальности</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="callbackModal">
+        <div class="modal__content">
+            <button class="modal__close">&times;</button>
+            <h3>Заказать звонок</h3>
+            <p>Оставьте номер, и мы перезвоним в течение 15 минут</p>
+            <form id="callbackForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="+38 (___) ___-__-__" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Перезвоните мне</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="consultationModal">
+        <div class="modal__content">
+            <button class="modal__close">&times;</button>
+            <h3>Бесплатная консультация</h3>
+            <p>Ответим на все вопросы и поможем с выбором проекта</p>
+            <form id="consultationForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="+38 (___) ___-__-__" required>
+                </div>
+                <div class="form-group">
+                    <select>
+                        <option value="">Интересует</option>
+                        <option>Проектирование</option>
+                        <option>Строительство</option>
+                        <option>Отделка</option>
+                        <option>Готовый проект</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Получить консультацию</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/form-handler.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Обработка кликов по кнопкам "Подробнее" в услугах
+        document.querySelectorAll('.service-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const service = link.getAttribute('data-service');
+                if (service) {
+                    window.location.href = `services.html?service=${service}`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>СтройМастер | Статья</title>
+    <meta name="description" content="Полезные статьи о строительстве">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        .hero {
+            position: relative;
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding-top: 100px;
+            padding-bottom: 60px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero__badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 14px;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, #ffe0b5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .blog-detail {
+            padding: 60px 0;
+        }
+        
+        .blog-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .blog-meta {
+            display: flex;
+            gap: 24px;
+            margin: 24px 0;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #e2e8f0;
+            color: var(--gray);
+        }
+        
+        .blog-body {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--dark);
+        }
+        
+        .blog-body h2 {
+            font-size: 28px;
+            margin: 40px 0 20px;
+        }
+        
+        .blog-body h3 {
+            font-size: 22px;
+            margin: 30px 0 15px;
+        }
+        
+        .blog-body p {
+            margin-bottom: 20px;
+        }
+        
+        .blog-body ul, .blog-body ol {
+            margin: 20px 0;
+            padding-left: 24px;
+        }
+        
+        .author-box {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin: 48px 0;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .similar-posts {
+            margin-top: 48px;
+            padding-top: 48px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 24px;
+        }
+        
+        .similar-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s;
+        }
+        
+        .similar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .similar-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .similar-card__info {
+            padding: 20px;
+        }
+        
+        .similar-card h4 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            .author-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            .similar-grid {
+                grid-template-columns: 1fr;
+            }
+            .blog-body {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/logo-white.svg" alt="СтройМастер" class="logo-img" onerror="this.style.display='none'">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </a>
+                </div>
+                
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header__actions">
+                    <a href="tel:+380501234567" class="phone-link">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+38 (050) 123-45-67</span>
+                    </a>
+                    <button class="btn btn-primary btn-call" data-modal="callback">Заказать звонок</button>
+                    <button class="mobile-menu-toggle" aria-label="Меню">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="heroSection" style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format');">
+            <div class="container">
+                <div class="hero__content">
+                    <span class="hero__badge" id="postCategory">Статья</span>
+                    <h1 id="postTitle">Загрузка...</h1>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-detail">
+            <div class="container">
+                <div class="blog-content">
+                    <div class="blog-meta" id="blogMeta"></div>
+                    <div class="blog-body" id="blogBody"></div>
+                    
+                    <div class="author-box" id="authorBox"></div>
+                    
+                    <div class="similar-posts">
+                        <h3>Похожие статьи</h3>
+                        <div id="similarPosts" class="similar-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <div class="logo">
+                        <img src="images/logo-white.svg" alt="СтройМастер" class="logo-img" onerror="this.style.display='none'">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </div>
+                    <p>Строим дома вашей мечты с 2009 года. Надёжно, качественно, в срок.</p>
+                    <div class="footer__social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer__col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Контакты</h4>
+                    <ul class="footer__contacts">
+                        <li><i class="fas fa-phone"></i> +38 (050) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@stroymaster.ua</li>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Киев, ул. Строительная, 15</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 СтройМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="callbackModal">
+        <div class="modal__content">
+            <button class="modal__close">&times;</button>
+            <h3>Заказать звонок</h3>
+            <form>
+                <div class="form-group"><input type="text" placeholder="Ваше имя" required></div>
+                <div class="form-group"><input type="tel" placeholder="+38 (___) ___-__-__" required></div>
+                <button type="submit" class="btn btn-primary">Перезвоните мне</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/form-handler.js"></script>
+    
+    <script>
+        // Данные всех статей
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Как выбрать участок для строительства дома",
+                category: "Строительство",
+                date: "15 марта 2025",
+                readTime: "7 мин",
+                author: "Александр Петренко",
+                authorTitle: "Главный архитектор",
+                authorAvatar: "https://randomuser.me/api/portraits/men/32.jpg",
+                image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format",
+                content: `
+                    <p>Выбор участка — один из самых важных этапов строительства дома. От того, насколько правильно вы подойдёте к этому вопросу, зависит не только комфорт проживания, но и стоимость строительства.</p>
+                    
+                    <h2>1. Геология участка</h2>
+                    <p>Перед покупкой участка обязательно проведите геологическое исследование. Тип грунта, уровень грунтовых вод, наличие подземных источников — всё это влияет на выбор типа фундамента и стоимость его закладки.</p>
+                    
+                    <h2>2. Коммуникации</h2>
+                    <p>Наличие или возможность подключения к центральным коммуникациям значительно упрощает жизнь и снижает затраты.</p>
+                    
+                    <h2>3. Юридическая чистота</h2>
+                    <p>Проверьте документы на участок. Убедитесь, что участок находится в собственности продавца, нет обременений, арестов, судебных споров.</p>
+                    
+                    <h2>4. Расположение и инфраструктура</h2>
+                    <p>Обратите внимание на транспортную доступность, удалённость от города, наличие школ, детских садов, магазинов.</p>
+                    
+                    <h2>5. Рельеф и форма участка</h2>
+                    <p>Ровный прямоугольный участок — идеальный вариант. Сложный рельеф может потребовать дополнительных затрат.</p>
+                `
+            },
+            {
+                id: 2,
+                title: "Современные материалы для строительства: что выбрать?",
+                category: "Материалы",
+                date: "28 февраля 2025",
+                readTime: "10 мин",
+                author: "Михаил Шевченко",
+                authorTitle: "Главный инженер",
+                authorAvatar: "https://randomuser.me/api/portraits/men/75.jpg",
+                image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format",
+                content: `
+                    <p>Выбор строительных материалов — ключевой этап, влияющий на долговечность, энергоэффективность и стоимость дома. Рассмотрим основные варианты.</p>
+                    
+                    <h2>Кирпич</h2>
+                    <p>Классический материал, проверенный веками. Отличается высокой прочностью, морозостойкостью и долговечностью. Кирпичные дома "дышат" и создают комфортный микроклимат.</p>
+                    
+                    <h2>Газобетон</h2>
+                    <p>Современный материал, сочетающий легкость и теплоизоляционные свойства. Позволяет быстро возводить стены, экономить на фундаменте и отоплении.</p>
+                    
+                    <h2>Монолит</h2>
+                    <p>Технология заливки бетона в опалубку позволяет создавать дома любой сложности. Обеспечивает высокую сейсмостойкость и свободу планировки.</p>
+                    
+                    <h2>Каркасные технологии</h2>
+                    <p>Быстровозводимые конструкции, идеальные для сезонного проживания. Отличаются доступной ценой и высокой энергоэффективностью.</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Этапы строительства дома под ключ",
+                category: "Строительство",
+                date: "10 февраля 2025",
+                readTime: "12 мин",
+                author: "Александр Петренко",
+                authorTitle: "Главный архитектор",
+                authorAvatar: "https://randomuser.me/api/portraits/men/32.jpg",
+                image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format",
+                content: `
+                    <p>Строительство дома под ключ включает несколько последовательных этапов, каждый из которых требует внимания и контроля.</p>
+                    
+                    <h2>1. Проектирование</h2>
+                    <p>Создание архитектурного проекта, согласование планировки, выбор материалов. На этом этапе закладываются все ключевые решения.</p>
+                    
+                    <h2>2. Фундамент</h2>
+                    <p>Заливка фундамента — основа надёжности дома. Выбор типа фундамента зависит от геологии участка и веса конструкции.</p>
+                    
+                    <h2>3. Возведение стен и перекрытий</h2>
+                    <p>Строительство несущих стен, установка перекрытий, монтаж кровли. Формируется "коробка" дома.</p>
+                    
+                    <h2>4. Инженерные коммуникации</h2>
+                    <p>Проводка электричества, водоснабжение, канализация, отопление, вентиляция. Скрытые работы, требующие особой тщательности.</p>
+                    
+                    <h2>5. Отделка</h2>
+                    <p>Черновая и чистовая отделка, установка окон и дверей, финишные покрытия. Дом обретает завершённый вид.</p>
+                    
+                    <h2>6. Благоустройство территории</h2>
+                    <p>Ландшафтный дизайн, дорожки, озеленение, зоны отдыха. Создание комфортного пространства вокруг дома.</p>
+                `
+            }
+        ];
+
+        // Получаем ID статьи из URL
+        function getPostIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return parseInt(params.get('id'));
+        }
+
+        // Рендерим страницу
+        function renderPost() {
+            const postId = getPostIdFromUrl();
+            const post = blogPosts.find(p => p.id === postId);
+            
+            if (!post) {
+                document.getElementById('postTitle').textContent = 'Статья не найдена';
+                document.getElementById('blogBody').innerHTML = '<p>Извините, запрашиваемая статья не существует.</p>';
+                return;
+            }
+            
+            // Устанавливаем заголовок и метаданные
+            document.title = `${post.title} | СтройМастер`;
+            document.getElementById('postCategory').textContent = post.category;
+            document.getElementById('postTitle').textContent = post.title;
+            
+            // Обновляем фон hero
+            const heroSection = document.getElementById('heroSection');
+            if (heroSection) {
+                heroSection.style.backgroundImage = `url('${post.image}')`;
+            }
+            
+            // Мета-информация
+            document.getElementById('blogMeta').innerHTML = `
+                <span><i class="far fa-calendar"></i> ${post.date}</span>
+                <span><i class="far fa-clock"></i> ${post.readTime}</span>
+                <span><i class="far fa-user"></i> ${post.author}</span>
+                <span><i class="far fa-folder"></i> ${post.category}</span>
+            `;
+            
+            // Содержание статьи
+            document.getElementById('blogBody').innerHTML = post.content;
+            
+            // Автор
+            document.getElementById('authorBox').innerHTML = `
+                <img class="author-avatar" src="${post.authorAvatar}" alt="${post.author}">
+                <div>
+                    <h4>${post.author}</h4>
+                    <p>${post.authorTitle}</p>
+                    <p style="margin-top: 8px;">Опыт работы более 15 лет. Спроектировал более 50 домов по всей Украине.</p>
+                </div>
+            `;
+            
+            // Похожие статьи (исключаем текущую)
+            const similarPosts = blogPosts.filter(p => p.id !== post.id).slice(0, 3);
+            document.getElementById('similarPosts').innerHTML = similarPosts.map(p => `
+                <div class="similar-card">
+                    <img src="${p.image}" alt="${p.title}">
+                    <div class="similar-card__info">
+                        <h4>${p.title}</h4>
+                        <a href="blog-detail.html?id=${p.id}" class="link-arrow">Читать далее <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        AOS.init({ duration: 800, once: true });
+        renderPost();
+    </script>
+</body>
+</html>

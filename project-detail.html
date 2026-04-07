@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Современный коттедж в пригороде Киева | СтройМастер</title>
+    <meta name="description" content="Реализованный проект строительства современного коттеджа в Киевской области. Фотогалерея, характеристики, отзывы.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        .hero-project {
+            min-height: 60vh;
+            background: linear-gradient(135deg, #1a2a32 0%, #0f1a20 100%);
+        }
+        
+        .project-detail {
+            padding: 80px 0;
+        }
+        
+        .project-gallery {
+            margin-bottom: 60px;
+        }
+        
+        .main-image {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            margin-bottom: 20px;
+        }
+        
+        .thumb-gallery {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .thumb {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s;
+        }
+        
+        .thumb:hover, .thumb.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        
+        .project-info {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin: 32px 0;
+            padding: 24px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .spec-item {
+            text-align: center;
+        }
+        
+        .spec-item i {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .spec-item .label {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .spec-item .value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .similar-projects {
+            margin-top: 60px;
+        }
+        
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .specs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .similar-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (как на других страницах) -->
+    <header class="header">...</header>
+
+    <main>
+        <section class="hero hero-project">
+            <div class="container">
+                <div class="hero__content" data-aos="fade-up">
+                    <span class="hero__badge">Проект</span>
+                    <h1 id="projectTitle">Современный коттедж в пригороде Киева</h1>
+                    <p id="projectLocation" class="hero__desc"><i class="fas fa-map-marker-alt"></i> Киевская область, с. Софиевская Борщаговка</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-detail">
+            <div class="container">
+                <div class="project-gallery" data-aos="fade-up">
+                    <img id="mainImage" class="main-image" src="" alt="">
+                    <div id="thumbGallery" class="thumb-gallery"></div>
+                </div>
+                
+                <div class="project-info" data-aos="fade-up" data-aos-delay="100">
+                    <h2>О проекте</h2>
+                    <p id="projectDescription">Современный дом в стиле минимализм с панорамными окнами и террасой. Использованы материалы премиум-класса: кирпич KERAKAM, фасадная штукатурка Caparol, металлочерепица Ruukki.</p>
+                    
+                    <div class="specs-grid" id="specsGrid"></div>
+                    
+                    <div class="project-features">
+                        <h3>Особенности проекта</h3>
+                        <ul id="featuresList">
+                            <li><i class="fas fa-check-circle"></i> Панорамное остекление</li>
+                            <li><i class="fas fa-check-circle"></i> Система "умный дом"</li>
+                            <li><i class="fas fa-check-circle"></i> Тёплые полы на всех этажах</li>
+                            <li><i class="fas fa-check-circle"></i> Приточная вентиляция с рекуперацией</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-large" data-modal="consultation" style="margin-top: 32px;">Заказать похожий проект</button>
+                </div>
+                
+                <div class="similar-projects" data-aos="fade-up">
+                    <h3>Похожие проекты</h3>
+                    <div id="similarGrid" class="similar-grid"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">...</footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        
+        // Данные проекта (в реальном проекте получаем из URL параметра)
+        const projectData = {
+            id: 1,
+            title: "Современный коттедж в пригороде Киева",
+            location: "Киевская область, с. Софиевская Борщаговка",
+            description: "Современный дом в стиле минимализм с панорамными окнами и террасой. Использованы материалы премиум-класса: кирпич KERAKAM, фасадная штукатурка Caparol, металлочерепица Ruukki.",
+            area: "250 м²",
+            year: "2024",
+            price: "3 200 000 грн",
+            duration: "8 месяцев",
+            images: [
+                "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format",
+                "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2070&auto=format",
+                "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2070&auto=format"
+            ],
+            features: [
+                "Панорамное остекление",
+                "Система \"умный дом\"",
+                "Тёплые полы на всех этажах",
+                "Приточная вентиляция с рекуперацией"
+            ]
+        };
+        
+        function renderProjectDetail() {
+            document.getElementById('projectTitle').textContent = projectData.title;
+            document.getElementById('projectLocation').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${projectData.location}`;
+            document.getElementById('projectDescription').textContent = projectData.description;
+            document.getElementById('mainImage').src = projectData.images[0];
+            
+            // Галерея
+            document.getElementById('thumbGallery').innerHTML = projectData.images.map((img, idx) => `
+                <img class="thumb ${idx === 0 ? 'active' : ''}" src="${img}" onclick="changeImage(${idx})">
+            `).join('');
+            
+            // Спецификации
+            document.getElementById('specsGrid').innerHTML = `
+                <div class="spec-item"><i class="fas fa-ruler-combined"></i><div class="label">Площадь</div><div class="value">${projectData.area}</div></div>
+                <div class="spec-item"><i class="fas fa-calendar-alt"></i><div class="label">Год постройки</div><div class="value">${projectData.year}</div></div>
+                <div class="spec-item"><i class="fas fa-tag"></i><div class="label">Стоимость</div><div class="value">${projectData.price}</div></div>
+                <div class="spec-item"><i class="fas fa-clock"></i><div class="label">Срок строительства</div><div class="value">${projectData.duration}</div></div>
+            `;
+            
+            // Особенности
+            document.getElementById('featuresList').innerHTML = projectData.features.map(f => `
+                <li><i class="fas fa-check-circle"></i> ${f}</li>
+            `).join('');
+        }
+        
+        function changeImage(index) {
+            document.getElementById('mainImage').src = projectData.images[index];
+            document.querySelectorAll('.thumb').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+        }
+        
+        renderProjectDetail();
+        window.changeImage = changeImage;
+    </script>
+</body>
+</html>

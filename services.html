@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Услуги | СтройМастер</title>
+    <meta name="description" content="Полный спектр строительных услуг: проектирование, строительство, отделка, ландшафтный дизайн. Работаем под ключ.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        .hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding-top: 100px;
+            padding-bottom: 80px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero__badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 14px;
+            margin-bottom: 24px;
+            color: #fff;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, #ffe0b5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .hero__desc {
+            font-size: 18px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 0;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .service-detail {
+            padding: 80px 0;
+        }
+        
+        .service-detail__card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+            scroll-margin-top: 100px;
+            transition: box-shadow 0.3s;
+        }
+        
+        .service-detail__card:nth-child(even) {
+            direction: rtl;
+        }
+        
+        .service-detail__card:nth-child(even) .service-detail__content {
+            direction: ltr;
+        }
+        
+        .service-detail__image {
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .service-detail__image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .service-detail__content h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin: 24px 0;
+        }
+        
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .service-features li i {
+            color: var(--primary);
+            font-size: 18px;
+        }
+        
+        .service-price {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 24px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero__desc {
+                font-size: 16px;
+            }
+            .service-detail__card {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .service-detail__card:nth-child(even) {
+                direction: ltr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Logo/Logo.png" alt="СтройМастер" class="logo-img">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                        <li><a href="services.html" class="active">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </nav>
+                <div class="header__actions">
+                    <a href="tel:+380501234567" class="phone-link">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+38 (050) 123-45-67</span>
+                    </a>
+                    <button class="btn btn-primary btn-call" data-modal="callback">Заказать звонок</button>
+                    <button class="mobile-menu-toggle" aria-label="Меню">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format');">
+            <div class="container">
+                <div class="hero__content">
+                    <span class="hero__badge">Что мы предлагаем</span>
+                    <h1>Комплексные<br>строительные решения</h1>
+                    <p class="hero__desc">От проекта до ключа — берём на себя все этапы строительства вашего дома</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-detail">
+            <div class="container">
+                <div id="design" class="service-detail__card" data-aos="fade-right">
+                    <div class="service-detail__image">
+                        <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=2070&auto=format" alt="Проектирование">
+                    </div>
+                    <div class="service-detail__content">
+                        <span class="section-tag">01</span>
+                        <h2>Проектирование</h2>
+                        <p>Создаём уникальные архитектурные решения, учитывая все ваши пожелания, особенности участка и современные тенденции.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Индивидуальное проектирование</li>
+                            <li><i class="fas fa-check-circle"></i> 3D-визуализация будущего дома</li>
+                            <li><i class="fas fa-check-circle"></i> Согласование документации</li>
+                            <li><i class="fas fa-check-circle"></i> Авторский надзор</li>
+                        </ul>
+                        <div class="service-price">от 500 $</div>
+                        <button class="btn btn-primary" data-modal="consultation">Заказать проект</button>
+                    </div>
+                </div>
+                
+                <div id="construction" class="service-detail__card" data-aos="fade-left">
+                    <div class="service-detail__image">
+                        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format" alt="Строительство">
+                    </div>
+                    <div class="service-detail__content">
+                        <span class="section-tag">02</span>
+                        <h2>Строительство</h2>
+                        <p>Возводим дома любой сложности с использованием современных технологий и качественных материалов.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Кирпичные дома</li>
+                            <li><i class="fas fa-check-circle"></i> Газобетонные блоки</li>
+                            <li><i class="fas fa-check-circle"></i> Монолитное строительство</li>
+                            <li><i class="fas fa-check-circle"></i> Каркасные дома</li>
+                        </ul>
+                        <div class="service-price">от 800 $/м²</div>
+                        <button class="btn btn-primary" data-modal="consultation">Рассчитать стоимость</button>
+                    </div>
+                </div>
+                
+                <div id="finishing" class="service-detail__card" data-aos="fade-right">
+                    <div class="service-detail__image">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format" alt="Отделка">
+                    </div>
+                    <div class="service-detail__content">
+                        <span class="section-tag">03</span>
+                        <h2>Отделка и ремонт</h2>
+                        <p>Выполняем отделочные работы любой сложности: от черновой отделки до дизайнерского ремонта под ключ.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Черновая отделка</li>
+                            <li><i class="fas fa-check-circle"></i> Чистовая отделка</li>
+                            <li><i class="fas fa-check-circle"></i> Дизайнерский ремонт</li>
+                            <li><i class="fas fa-check-circle"></i> Комплектация материалами</li>
+                        </ul>
+                        <div class="service-price">от 300 $/м²</div>
+                        <button class="btn btn-primary" data-modal="consultation">Заказать отделку</button>
+                    </div>
+                </div>
+                
+                <div id="landscape" class="service-detail__card" data-aos="fade-left">
+                    <div class="service-detail__image">
+                        <img src="https://images.unsplash.com/photo-1558449028-b53a39d100fc?q=80&w=2070&auto=format" alt="Ландшафтный дизайн">
+                    </div>
+                    <div class="service-detail__content">
+                        <span class="section-tag">04</span>
+                        <h2>Ландшафтный дизайн</h2>
+                        <p>Создаём уютную и функциональную территорию вокруг вашего дома, которая будет радовать вас каждый день.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Проектирование ландшафта</li>
+                            <li><i class="fas fa-check-circle"></i> Озеленение и посадка растений</li>
+                            <li><i class="fas fa-check-circle"></i> Мощение и малые формы</li>
+                            <li><i class="fas fa-check-circle"></i> Системы полива и освещения</li>
+                        </ul>
+                        <div class="service-price">от 200 $</div>
+                        <button class="btn btn-primary" data-modal="consultation">Заказать ландшафт</button>
+                    </div>
+                </div>
+                
+                <div id="supervision" class="service-detail__card" data-aos="fade-right">
+                    <div class="service-detail__image">
+                        <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format" alt="Технадзор">
+                    </div>
+                    <div class="service-detail__content">
+                        <span class="section-tag">05</span>
+                        <h2>Технический надзор</h2>
+                        <p>Обеспечиваем контроль качества на всех этапах строительства, защищая ваши интересы.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Проверка смет и договоров</li>
+                            <li><i class="fas fa-check-circle"></i> Контроль качества материалов</li>
+                            <li><i class="fas fa-check-circle"></i> Надзор за соблюдением сроков</li>
+                            <li><i class="fas fa-check-circle"></i> Приёмка этапов работ</li>
+                        </ul>
+                        <div class="service-price">от 150 $/мес</div>
+                        <button class="btn btn-primary" data-modal="consultation">Заказать технадзор</button>
+                    </div>
+                </div>
+                
+                <div id="projects" class="service-detail__card" data-aos="fade-left">
+                    <div class="service-detail__image">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format" alt="Готовые проекты">
+                    </div>
+                    <div class="service-detail__content">
+                        <span class="section-tag">06</span>
+                        <h2>Готовые проекты</h2>
+                        <p>Более 50 типовых проектов домов с возможностью адаптации под ваши потребности и бюджет.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Проекты коттеджей</li>
+                            <li><i class="fas fa-check-circle"></i> Проекты таунхаусов</li>
+                            <li><i class="fas fa-check-circle"></i> Адаптация под участок</li>
+                            <li><i class="fas fa-check-circle"></i> Полный пакет документов</li>
+                        </ul>
+                        <div class="service-price">от 800 $</div>
+                        <a href="projects.html" class="btn btn-primary">Смотреть проекты</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <div class="logo">
+                        <img src="images/logo-white.svg" alt="СтройМастер" class="logo-img" onerror="this.style.display='none'">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </div>
+                    <p>Строим дома вашей мечты с 2009 года. Надёжно, качественно, в срок.</p>
+                    <div class="footer__social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer__col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Контакты</h4>
+                    <ul class="footer__contacts">
+                        <li><i class="fas fa-phone"></i> +38 (050) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@stroymaster.ua</li>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Киев, ул. Строительная, 15</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 СтройМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="callbackModal">
+        <div class="modal__content">
+            <button class="modal__close">&times;</button>
+            <h3>Заказать звонок</h3>
+            <form>
+                <div class="form-group"><input type="text" placeholder="Ваше имя" required></div>
+                <div class="form-group"><input type="tel" placeholder="+38 (___) ___-__-__" required></div>
+                <button type="submit" class="btn btn-primary">Перезвоните мне</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="modal" id="consultationModal">
+        <div class="modal__content">
+            <button class="modal__close">&times;</button>
+            <h3>Бесплатная консультация</h3>
+            <form>
+                <div class="form-group"><input type="text" placeholder="Ваше имя" required></div>
+                <div class="form-group"><input type="tel" placeholder="+38 (___) ___-__-__" required></div>
+                <div class="form-group">
+                    <select>
+                        <option>Меня интересует</option>
+                        <option>Проектирование</option>
+                        <option>Строительство</option>
+                        <option>Отделка</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Получить консультацию</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/form-handler.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        
+        // Прокрутка к нужной услуге при загрузке
+        const urlParams = new URLSearchParams(window.location.search);
+        const service = urlParams.get('service');
+        
+        if (service) {
+            setTimeout(() => {
+                const target = document.getElementById(service);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Подсветка
+                    target.style.transition = 'box-shadow 0.3s';
+                    target.style.boxShadow = '0 0 0 3px #c4451b';
+                    setTimeout(() => {
+                        target.style.boxShadow = '';
+                    }, 2000);
+                }
+            }, 300);
+        }
+    </script>
+</body>
+</html>

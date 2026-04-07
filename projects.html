@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Проекты | СтройМастер</title>
+    <meta name="description" content="Реализованные проекты строительства домов, коттеджей и ремонта. Фотогалерея, описания, отзывы клиентов.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        /* Специальные стили для projects.html */
+        .hero-projects {
+            min-height: 60vh;
+            background: linear-gradient(135deg, #1a2a32 0%, #0f1a20 100%);
+        }
+        
+        /* Фильтры */
+        .projects-filters {
+            padding: 60px 0 0;
+        }
+        
+        .filter-group {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+        
+        .filter-btn {
+            background: transparent;
+            border: none;
+            padding: 12px 28px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 48px;
+            transition: all 0.3s ease;
+            color: var(--gray);
+            position: relative;
+        }
+        
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* Masonry Gallery */
+        .projects-gallery {
+            padding: 0 0 60px;
+        }
+        
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .project-item {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .project-item:hover {
+            transform: translateY(-8px);
+        }
+        
+        .project-item__image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .project-item:hover .project-item__image {
+            transform: scale(1.05);
+        }
+        
+        .project-item__overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 30px 24px 24px;
+            color: var(--white);
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .project-item:hover .project-item__overlay {
+            transform: translateY(0);
+        }
+        
+        .project-item__category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 40px;
+            margin-bottom: 12px;
+        }
+        
+        .project-item__title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .project-item__location {
+            font-size: 14px;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Large item для разнообразия */
+        .project-item--large {
+            grid-row: span 2;
+        }
+        
+        .project-item--large .project-item__image {
+            height: 630px;
+        }
+        
+        .project-item--wide {
+            grid-column: span 2;
+        }
+        
+        /* Пагинация */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .page-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--white);
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .page-link.active,
+        .page-link:hover {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        
+        .page-link.next {
+            width: auto;
+            padding: 0 20px;
+            border-radius: 40px;
+        }
+        
+        /* Детали проекта (модальное окно) */
+        .project-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+        
+        .project-modal.active {
+            display: flex;
+        }
+        
+        .project-modal__content {
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            overflow-y: auto;
+            position: relative;
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        .project-modal__close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 20px;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .project-modal__close:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .project-modal__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        
+        .project-modal__gallery {
+            background: var(--dark);
+            padding: 30px;
+        }
+        
+        .project-modal__main-img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            margin-bottom: 20px;
+        }
+        
+        .project-modal__thumbs {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .project-modal__thumb {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s;
+        }
+        
+        .project-modal__thumb:hover,
+        .project-modal__thumb.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        
+        .project-modal__info {
+            padding: 40px;
+        }
+        
+        .project-modal__info h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+        
+        .project-modal__specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .spec-item i {
+            width: 32px;
+            height: 32px;
+            background: rgba(196,69,27,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .project-modal__description {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .masonry-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-item--large,
+            .project-item--wide {
+                grid-row: auto;
+                grid-column: auto;
+            }
+            
+            .project-modal__inner {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-modal {
+                padding: 20px;
+            }
+            
+            .project-modal__gallery {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+    <div class="container">
+        <div class="header__inner">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/Logo/Logo.png" alt="СтройМастер" class="logo-img">
+                    <span class="logo-text">Строй<span>Мастер</span></span>
+                </a>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О компании</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="projects.html">Проекты</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header__actions">
+                <a href="tel:+380501234567" class="phone-link">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+38 (050) 123-45-67</span>
+                </a>
+                <button class="btn btn-primary btn-call" data-modal="callback">Заказать звонок</button>
+                <button class="mobile-menu-toggle" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero" style="background-image: url('https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1600'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="container">
+        <div class="hero__content">
+            <span class="hero__badge">Наши работы</span>
+            <h1>Реализованные<br>проекты</h1>
+            <p class="hero__desc">Более 120 домов, построенных с любовью к деталям и уважением к клиентам</p>
+        </div>
+    </div>
+    <div class="scroll-down">
+        <a href="#projects"><i class="fas fa-chevron-down"></i></a>
+    </div>
+</section>
+
+        <!-- Фильтры -->
+        <section class="projects-filters">
+            <div class="container">
+                <div class="filter-group" data-aos="fade-up">
+                    <button class="filter-btn active" data-filter="all">Все проекты</button>
+                    <button class="filter-btn" data-filter="house">Коттеджи</button>
+                    <button class="filter-btn" data-filter="townhouse">Таунхаусы</button>
+                    <button class="filter-btn" data-filter="repair">Ремонт</button>
+                    <button class="filter-btn" data-filter="design">Интерьеры</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Галерея проектов -->
+        <section class="projects-gallery">
+            <div class="container">
+                <div class="masonry-grid" id="projectsGrid">
+                    <!-- Проекты будут загружены через JS -->
+                </div>
+                
+                <!-- Пагинация -->
+                <div class="pagination" id="pagination">
+                    <a href="#" class="page-link prev" data-page="prev">←</a>
+                    <a href="#" class="page-link active" data-page="1">1</a>
+                    <a href="#" class="page-link" data-page="2">2</a>
+                    <a href="#" class="page-link" data-page="3">3</a>
+                    <a href="#" class="page-link next" data-page="next">Следующая →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta cta--skeuomorphic">
+            <div class="container">
+                <div class="cta__inner" data-aos="zoom-in">
+                    <h2>Хотите такой же дом?</h2>
+                    <p>Оставьте заявку, и мы бесплатно рассчитаем стоимость вашего проекта</p>
+                    <form class="cta__form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="+38 (___) ___-__-__" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large">Получить расчёт</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <div class="logo">
+                        <img src="images/logo-white.svg" alt="СтройМастер" class="logo-img" onerror="this.style.display='none'">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </div>
+                    <p>Строим дома вашей мечты с 2009 года. Надёжно, качественно, в срок.</p>
+                    <div class="footer__social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer__col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Контакты</h4>
+                    <ul class="footer__contacts">
+                        <li><i class="fas fa-phone"></i> +38 (050) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@stroymaster.ua</li>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Киев, ул. Строительная, 15</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 СтройМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно деталей проекта -->
+    <div id="projectModal" class="project-modal">
+        <div class="project-modal__content">
+            <div class="project-modal__close" onclick="closeProjectModal()">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="project-modal__inner">
+                <div class="project-modal__gallery">
+                    <img id="modalMainImg" class="project-modal__main-img" src="" alt="">
+                    <div id="modalThumbs" class="project-modal__thumbs"></div>
+                </div>
+                <div class="project-modal__info">
+                    <span id="modalCategory" class="section-tag"></span>
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalLocation" class="project-item__location" style="margin-bottom: 16px;">
+                        <i class="fas fa-map-marker-alt"></i> 
+                    </p>
+                    <div class="project-modal__specs" id="modalSpecs"></div>
+                    <p id="modalDescription" class="project-modal__description"></p>
+                    <button class="btn btn-primary" data-modal="consultation">Заказать похожий проект</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалки для форм -->
+    <div class="modal" id="callbackModal">
+        <div class="modal__content">
+            <button class="modal__close">&times;</button>
+            <h3>Заказать звонок</h3>
+            <form>
+                <div class="form-group"><input type="text" placeholder="Ваше имя" required></div>
+                <div class="form-group"><input type="tel" placeholder="+38 (___) ___-__-__" required></div>
+                <button type="submit" class="btn btn-primary">Перезвоните мне</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="modal" id="consultationModal">
+        <div class="modal__content">
+            <button class="modal__close">&times;</button>
+            <h3>Бесплатная консультация</h3>
+            <form>
+                <div class="form-group"><input type="text" placeholder="Ваше имя" required></div>
+                <div class="form-group"><input type="tel" placeholder="+38 (___) ___-__-__" required></div>
+                <div class="form-group">
+                    <select>
+                        <option>Меня интересует</option>
+                        <option>Проектирование</option>
+                        <option>Строительство</option>
+                        <option>Отделка</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Получить консультацию</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/form-handler.js"></script>
+    
+    <script>
+        // Данные проектов
+        const projectsData = [
+            {
+                id: 1,
+                title: "Современный коттедж в пригороде Киева",
+                category: "house",
+                location: "Киевская область, с. Софиевская Борщаговка",
+                area: "250 м²",
+                year: "2024",
+                price: "3 200 000 грн",
+                duration: "8 месяцев",
+                description: "Современный дом в стиле минимализм с панорамными окнами и террасой. Использованы материалы премиум-класса: кирпич KERAKAM, фасадная штукатурка Caparol, металлочерепица Ruukki.",
+                image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format",
+                gallery: [
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2070&auto=format"
+                ]
+            },
+            {
+                id: 2,
+                title: "Классический кирпичный особняк",
+                category: "house",
+                location: "Киев, ЖК \"Золотые ворота\"",
+                area: "380 м²",
+                year: "2023",
+                price: "5 500 000 грн",
+                duration: "12 месяцев",
+                description: "Элегантный дом в классическом стиле с элементами модерна. Фасад из лицевого кирпича, мраморные ступени, кованые элементы. Просторная терраса и ландшафтный дизайн.",
+                image: "https://images.unsplash.com/photo-1600607687644-c7171b42498f?q=80&w=2070&auto=format",
+                gallery: [
+                    "https://images.unsplash.com/photo-1600607687644-c7171b42498f?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=2070&auto=format"
+                ]
+            },
+            {
+                id: 3,
+                title: "Эко-дом из газобетона",
+                category: "house",
+                location: "Львовская область, с. Брюховичи",
+                area: "210 м²",
+                year: "2024",
+                price: "2 800 000 грн",
+                duration: "6 месяцев",
+                description: "Энергоэффективный дом из газобетонных блоков с системой \"умный дом\". Солнечные панели, тепловой насос, рекуперация воздуха. Экологичные материалы.",
+                image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format",
+                gallery: [
+                    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1580587771525-78b9dba3b4e8?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format"
+                ]
+            },
+            {
+                id: 4,
+                title: "Комплекс таунхаусов",
+                category: "townhouse",
+                location: "Киевская область, с. Петропавловская Борщаговка",
+                area: "450 м² (6 секций)",
+                year: "2023",
+                price: "от 1 800 000 грн",
+                duration: "14 месяцев",
+                description: "Комплекс из 6 таунхаусов премиум-класса с общей территорией и детской площадкой. Каждая секция имеет отдельный вход и парковочное место.",
+                image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format",
+                gallery: [
+                    "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1580587771525-78b9dba3b4e8?q=80&w=2070&auto=format"
+                ]
+            },
+            {
+                id: 5,
+                title: "Дизайнерский ремонт пентхауса",
+                category: "repair",
+                location: "Киев, Печерский район",
+                area: "180 м²",
+                year: "2024",
+                price: "1 500 000 грн",
+                duration: "4 месяца",
+                description: "Ремонт пентхауса в стиле лофт с элементами скандинавского дизайна. Панорамные окна, итальянская плитка, немецкая сантехника.",
+                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format",
+                gallery: [
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2070&auto=format"
+                ]
+            },
+            {
+                id: 6,
+                title: "Интерьер квартиры в скандинавском стиле",
+                category: "design",
+                location: "Киев, Оболонский район",
+                area: "95 м²",
+                year: "2024",
+                price: "850 000 грн",
+                duration: "2.5 месяца",
+                description: "Дизайн-проект и реализация интерьера в светлых тонах с акцентами из натурального дерева. Зонирование пространства, встроенная мебель.",
+                image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=2070&auto=format",
+                gallery: [
+                    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2070&auto=format"
+                ]
+            },
+            {
+                id: 7,
+                title: "Современный таунхаус с террасой",
+                category: "townhouse",
+                location: "Киевская область, с. Княжичи",
+                area: "160 м²",
+                year: "2024",
+                price: "2 200 000 грн",
+                duration: "7 месяцев",
+                description: "Современный таунхаус с панорамным остеклением и террасой. Использованы материалы: керамические блоки Porotherm, фасадная система Baumit.",
+                image: "https://images.unsplash.com/photo-1600607687920-4e2a5e2b1e3d?q=80&w=2070&auto=format",
+                gallery: [
+                    "https://images.unsplash.com/photo-1600607687920-4e2a5e2b1e3d?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2070&auto=format"
+                ]
+            }
+        ];
+        
+        let currentFilter = 'all';
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        
+        // Фильтрация проектов
+        function filterProjects(filter) {
+            currentFilter = filter;
+            currentPage = 1;
+            renderProjects();
+            updateActiveFilterButton();
+        }
+        
+        function updateActiveFilterButton() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-filter') === currentFilter) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        function getFilteredProjects() {
+            if (currentFilter === 'all') {
+                return projectsData;
+            }
+            return projectsData.filter(p => p.category === currentFilter);
+        }
+        
+        function getPaginatedProjects() {
+            const filtered = getFilteredProjects();
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            return filtered.slice(start, end);
+        }
+        
+        function getTotalPages() {
+            const filtered = getFilteredProjects();
+            return Math.ceil(filtered.length / itemsPerPage);
+        }
+        
+        function renderProjects() {
+            const grid = document.getElementById('projectsGrid');
+            const paginated = getPaginatedProjects();
+            const totalPages = getTotalPages();
+            
+            grid.innerHTML = paginated.map((project, index) => {
+                let sizeClass = '';
+                if (index === 0 && currentPage === 1) sizeClass = 'project-item--large';
+                if (index === 3 && currentPage === 1) sizeClass = 'project-item--wide';
+                
+                const categoryText = getCategoryText(project.category);
+                
+                return `
+                    <div class="project-item ${sizeClass}" onclick="openProjectModal(${project.id})">
+                        <img class="project-item__image" src="${project.image}" alt="${project.title}">
+                        <div class="project-item__overlay">
+                            <span class="project-item__category">${categoryText}</span>
+                            <h3 class="project-item__title">${project.title}</h3>
+                            <div class="project-item__location">
+                                <i class="fas fa-map-marker-alt"></i> ${project.location}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            updatePagination(totalPages);
+        }
+        
+        function updatePagination(totalPages) {
+            const paginationContainer = document.getElementById('pagination');
+            if (!paginationContainer) return;
+            
+            let html = `<a href="#" class="page-link prev" data-page="prev">←</a>`;
+            
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<a href="#" class="page-link ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</a>`;
+            }
+            
+            html += `<a href="#" class="page-link next" data-page="next">Следующая →</a>`;
+            paginationContainer.innerHTML = html;
+            
+            // Обработчики пагинации
+            paginationContainer.querySelectorAll('.page-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.getAttribute('data-page');
+                    if (page === 'prev') {
+                        if (currentPage > 1) currentPage--;
+                    } else if (page === 'next') {
+                        if (currentPage < totalPages) currentPage++;
+                    } else {
+                        currentPage = parseInt(page);
+                    }
+                    renderProjects();
+                    window.scrollTo({ top: 400, behavior: 'smooth' });
+                });
+            });
+        }
+        
+        function getCategoryText(category) {
+            const categories = {
+                house: '🏠 Коттедж',
+                townhouse: '🏘️ Таунхаус',
+                repair: '🔨 Ремонт',
+                design: '🎨 Дизайн интерьера'
+            };
+            return categories[category] || 'Проект';
+        }
+        
+        // Открытие модального окна с деталями
+        function openProjectModal(id) {
+            const project = projectsData.find(p => p.id === id);
+            if (!project) return;
+            
+            const modal = document.getElementById('projectModal');
+            document.getElementById('modalCategory').textContent = getCategoryText(project.category);
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalLocation').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${project.location}`;
+            document.getElementById('modalDescription').textContent = project.description;
+            document.getElementById('modalMainImg').src = project.gallery[0];
+            
+            // Спецификации
+            document.getElementById('modalSpecs').innerHTML = `
+                <div class="spec-item"><i class="fas fa-ruler-combined"></i><div><strong>Площадь</strong><br>${project.area}</div></div>
+                <div class="spec-item"><i class="fas fa-calendar-alt"></i><div><strong>Год постройки</strong><br>${project.year}</div></div>
+                <div class="spec-item"><i class="fas fa-tag"></i><div><strong>Стоимость</strong><br>${project.price}</div></div>
+                <div class="spec-item"><i class="fas fa-clock"></i><div><strong>Срок строительства</strong><br>${project.duration}</div></div>
+            `;
+            
+            // Мини-галерея
+            const thumbsContainer = document.getElementById('modalThumbs');
+            thumbsContainer.innerHTML = project.gallery.map((img, idx) => `
+                <img class="project-modal__thumb ${idx === 0 ? 'active' : ''}" src="${img}" onclick="changeModalImage(${idx})">
+            `).join('');
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function changeModalImage(index) {
+            const mainImg = document.getElementById('modalMainImg');
+            const thumbs = document.querySelectorAll('.project-modal__thumb');
+            const newSrc = thumbs[index].src;
+            mainImg.src = newSrc;
+            thumbs.forEach((thumb, i) => {
+                if (i === index) thumb.classList.add('active');
+                else thumb.classList.remove('active');
+            });
+        }
+        
+        function closeProjectModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Инициализация фильтров
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                filterProjects(filter);
+            });
+        });
+        
+        // Закрытие модального окна по клику на фон
+        document.getElementById('projectModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('projectModal')) {
+                closeProjectModal();
+            }
+        });
+        
+        // Инициализация AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Рендерим проекты при загрузке
+        renderProjects();
+        
+        window.openProjectModal = openProjectModal;
+        window.closeProjectModal = closeProjectModal;
+        window.changeModalImage = changeModalImage;
+    </script>
+</body>
+</html>

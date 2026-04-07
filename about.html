@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>О компании | СтройМастер</title>
+    <meta name="description" content="15 лет опыта в строительстве. Более 120 построенных домов. Индивидуальный подход, гарантия качества.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        /* Специальные стили для about.html */
+        .hero {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 100px;
+            padding-bottom: 80px;
+            overflow: hidden;
+        }
+        
+        /* Анимация появления фона */
+        .hero {
+            animation: bgFadeIn 1.2s ease-out;
+        }
+        
+        @keyframes bgFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Затемнение */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+            animation: overlayFadeIn 1s ease-out;
+        }
+        
+        @keyframes overlayFadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero__content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero__badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 14px;
+            margin-bottom: 24px;
+            color: #fff;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, #ffe0b5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .hero__desc {
+            font-size: 18px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 0;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-down a {
+            color: #fff;
+            font-size: 32px;
+            transition: all 0.3s;
+        }
+        
+        .scroll-down a:hover {
+            color: rgba(255,255,255,0.8);
+            transform: translateY(5px);
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* История компании */
+        .history {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        
+        .history__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .history__image {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .history__image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .history__years {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-skeuo);
+        }
+        
+        .history__years .number {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1;
+        }
+        
+        .history__years .text {
+            font-size: 14px;
+        }
+        
+        .history__content h2 {
+            font-size: 42px;
+            margin-bottom: 24px;
+        }
+        
+        .history__stats {
+            display: flex;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .history-stat {
+            text-align: center;
+        }
+        
+        .history-stat .number {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: var(--font-heading);
+        }
+        
+        /* Ценности */
+        .values {
+            background: var(--light);
+            padding: 80px 0;
+        }
+        
+        .values__grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .value-card {
+            background: var(--white);
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .value-card__icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(196,69,27,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        
+        .value-card__icon i {
+            font-size: 32px;
+            color: var(--primary);
+        }
+        
+        .value-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .value-card p {
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* Команда */
+        .team {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        
+        .team__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .team-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .team-card__img {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .team-card__img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-card:hover .team-card__img img {
+            transform: scale(1.05);
+        }
+        
+        .team-card__info {
+            padding: 24px;
+        }
+        
+        .team-card__info h3 {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        
+        .team-card__info .position {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        
+        .team-card__info .experience {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+        
+        .team-social a {
+            width: 36px;
+            height: 36px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .team-social a:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+        
+        /* Сертификаты */
+        .certificates {
+            background: var(--light);
+            padding: 80px 0;
+        }
+        
+        .certificates__grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .certificate-card {
+            background: var(--white);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .certificate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .certificate-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 16px;
+        }
+        
+        .certificate-card p {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        @media (max-width: 1024px) {
+            .values__grid,
+            .certificates__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .team__grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero__desc {
+                font-size: 16px;
+            }
+            .scroll-down {
+                bottom: 20px;
+            }
+            .history__grid {
+                grid-template-columns: 1fr;
+            }
+            .history__years {
+                position: static;
+                margin-top: 20px;
+                display: inline-block;
+            }
+            .history__stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .values__grid,
+            .certificates__grid,
+            .team__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/Logo/Logo.png" alt="СтройМастер" class="logo-img">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </a>
+                </div>
+                
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html" class="active">О компании</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header__actions">
+                    <a href="tel:+380501234567" class="phone-link">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+38 (050) 123-45-67</span>
+                    </a>
+                    <button class="btn btn-primary btn-call" data-modal="callback">Заказать звонок</button>
+                    <button class="mobile-menu-toggle" aria-label="Меню">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero секция с фоновым изображением -->
+        <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format');">
+            <div class="container">
+                <div class="hero__content">
+                    <span class="hero__badge">Наша история</span>
+                    <h1>Строим дома<br>с душой</h1>
+                    <p class="hero__desc">15 лет опыта, 120+ счастливых семей, 100% гарантия качества</p>
+                </div>
+            </div>
+            <div class="scroll-down">
+                <a href="#history"><i class="fas fa-chevron-down"></i></a>
+            </div>
+        </section>
+
+        <!-- История компании -->
+        <section id="history" class="history">
+            <div class="container">
+                <div class="history__grid">
+                    <div class="history__image" data-aos="fade-right">
+                        <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format" alt="История компании">
+                        <div class="history__years">
+                            <div class="number">15+</div>
+                            <div class="text">лет<br>успешной<br>работы</div>
+                        </div>
+                    </div>
+                    <div class="history__content" data-aos="fade-left">
+                        <span class="section-tag">Наша история</span>
+                        <h2>От мечты к<br>реальному дому</h2>
+                        <p>СтройМастер основан в 2009 году командой единомышленников, объединённых любовью к строительству и архитектуре. За 15 лет мы превратились в одну из ведущих строительных компаний Украины.</p>
+                        <p>Наша философия проста: каждый дом должен быть не просто зданием, а настоящим домом, где хочется жить, растить детей и создавать воспоминания.</p>
+                        
+                        <div class="history__stats">
+                            <div class="history-stat">
+                                <div class="number">120+</div>
+                                <div class="label">построенных домов</div>
+                            </div>
+                            <div class="history-stat">
+                                <div class="number">98%</div>
+                                <div class="label">довольных клиентов</div>
+                            </div>
+                            <div class="history-stat">
+                                <div class="number">5 лет</div>
+                                <div class="label">гарантии</div>
+                            </div>
+                        </div>
+                        
+                        <a href="projects.html" class="btn btn-primary">Смотреть проекты</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Наши ценности (Bento стиль) -->
+        <section class="values">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag">Наши ценности</span>
+                    <h2 class="section-title">Принципы, на которых<br>мы строим</h2>
+                    <p class="section-desc">То, что делает нас надёжным партнёром</p>
+                </div>
+                
+                <div class="values__grid" data-aos="fade-up" data-aos-delay="100">
+                    <div class="value-card bento-card--material">
+                        <div class="value-card__icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Честность</h3>
+                        <p>Прозрачные цены, фиксированная смета, никаких скрытых платежей</p>
+                    </div>
+                    
+                    <div class="value-card bento-card--skeuomorphic">
+                        <div class="value-card__icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>Качество</h3>
+                        <p>Только проверенные материалы и технологии, контроль на каждом этапе</p>
+                    </div>
+                    
+                    <div class="value-card bento-card--material">
+                        <div class="value-card__icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Сроки</h3>
+                        <p>Строгое соблюдение графиков, своевременная сдача объектов</p>
+                    </div>
+                    
+                    <div class="value-card bento-card--typography">
+                        <div class="value-card__icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Забота</h3>
+                        <p>Индивидуальный подход к каждому клиенту, поддержка на всех этапах</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Команда -->
+        <section class="team">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag">Наша команда</span>
+                    <h2 class="section-title">Профессионалы<br>своего дела</h2>
+                    <p class="section-desc">Каждый проект — это результат работы настоящих экспертов</p>
+                </div>
+                
+                <div class="team__grid" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-card">
+                        <div class="team-card__img">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Александр Петренко">
+                        </div>
+                        <div class="team-card__info">
+                            <h3>Александр Петренко</h3>
+                            <div class="position">Главный архитектор</div>
+                            <div class="experience">Стаж: 18 лет</div>
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-behance"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-card__img">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ирина Ковальчук">
+                        </div>
+                        <div class="team-card__info">
+                            <h3>Ирина Ковальчук</h3>
+                            <div class="position">Руководитель проектов</div>
+                            <div class="experience">Стаж: 12 лет</div>
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-card__img">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Михаил Шевченко">
+                        </div>
+                        <div class="team-card__info">
+                            <h3>Михаил Шевченко</h3>
+                            <div class="position">Главный инженер</div>
+                            <div class="experience">Стаж: 15 лет</div>
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Сертификаты и награды -->
+        <section class="certificates">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag">Признание</span>
+                    <h2 class="section-title">Награды и<br>сертификаты</h2>
+                    <p class="section-desc">Подтверждение нашего профессионализма</p>
+                </div>
+                
+                <div class="certificates__grid" data-aos="fade-up" data-aos-delay="100">
+                    <div class="certificate-card">
+                        <img src="https://placehold.co/200x150/f8fafc/1e293b?text=ISO+9001" alt="Сертификат ISO">
+                        <p>Сертификат ISO 9001</p>
+                    </div>
+                    <div class="certificate-card">
+                        <img src="https://placehold.co/200x150/f8fafc/1e293b?text=Best+Company+2023" alt="Лучшая строительная компания">
+                        <p>Лучшая строительная компания 2023</p>
+                    </div>
+                    <div class="certificate-card">
+                        <img src="https://placehold.co/200x150/f8fafc/1e293b?text=Reliable+Partner" alt="Надежный партнер">
+                        <p>Надежный партнер года</p>
+                    </div>
+                    <div class="certificate-card">
+                        <img src="https://placehold.co/200x150/f8fafc/1e293b?text=Eco+Standard" alt="Эко-стандарт">
+                        <p>Сертификат Eco-Standard</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta cta--skeuomorphic">
+            <div class="container">
+                <div class="cta__inner" data-aos="zoom-in">
+                    <h2>Хотите построить дом своей мечты?</h2>
+                    <p>Оставьте заявку, и мы бесплатно проконсультируем вас по всем вопросам</p>
+                    <form class="cta__form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="+38 (___) ___-__-__" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large">Получить консультацию</button>
+                    </form>
+                    <p class="cta__note">Никакого спама, только полезная информация</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <div class="logo">
+                        <img src="images/logo-white.svg" alt="СтройМастер" class="logo-img" onerror="this.style.display='none'">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </div>
+                    <p>Строим дома вашей мечты с 2009 года. Надёжно, качественно, в срок.</p>
+                    <div class="footer__social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer__col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Контакты</h4>
+                    <ul class="footer__contacts">
+                        <li><i class="fas fa-phone"></i> +38 (050) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@stroymaster.ua</li>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Киев, ул. Строительная, 15</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 СтройМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="callbackModal">
+        <div class="modal__content">
+            <button class="modal__close">&times;</button>
+            <h3>Заказать звонок</h3>
+            <form>
+                <div class="form-group"><input type="text" placeholder="Ваше имя" required></div>
+                <div class="form-group"><input type="tel" placeholder="+38 (___) ___-__-__" required></div>
+                <button type="submit" class="btn btn-primary">Перезвоните мне</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="modal" id="consultationModal">
+        <div class="modal__content">
+            <button class="modal__close">&times;</button>
+            <h3>Бесплатная консультация</h3>
+            <form>
+                <div class="form-group"><input type="text" placeholder="Ваше имя" required></div>
+                <div class="form-group"><input type="tel" placeholder="+38 (___) ___-__-__" required></div>
+                <div class="form-group">
+                    <select>
+                        <option>Меня интересует</option>
+                        <option>Проектирование</option>
+                        <option>Строительство</option>
+                        <option>Отделка</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Получить консультацию</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/form-handler.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    </script>
+</body>
+</html><section class="hero" style="background-image:

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Блог | СтройМастер</title>
+    <meta name="description" content="Полезные статьи о строительстве, ремонте, дизайне интерьеров. Советы экспертов, новости рынка, вдохновение для вашего дома.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <style>
+        /* Специальные стили для blog.html */
+        .hero-blog {
+            min-height: 60vh;
+            background: linear-gradient(135deg, #1a2a32 0%, #0f1a20 100%);
+        }
+        
+        /* Поиск и категории */
+        .blog-header {
+            padding: 60px 0 40px;
+        }
+        
+        .blog-search {
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .search-form {
+            display: flex;
+            gap: 12px;
+            background: var(--white);
+            border-radius: 60px;
+            padding: 6px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .search-form input {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 60px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-form button {
+            background: var(--primary);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 60px;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-form button:hover {
+            background: var(--primary-dark);
+            transform: scale(1.02);
+        }
+        
+        .blog-categories {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .cat-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 40px;
+            transition: all 0.3s;
+            color: var(--gray);
+        }
+        
+        .cat-btn.active,
+        .cat-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Блог сетка */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .blog-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .blog-card__img {
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .blog-card__img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .blog-card:hover .blog-card__img img {
+            transform: scale(1.05);
+        }
+        
+        .blog-card__category {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .blog-card__info {
+            padding: 24px;
+        }
+        
+        .blog-card__meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: var(--gray);
+        }
+        
+        .blog-card__meta i {
+            margin-right: 4px;
+        }
+        
+        .blog-card__title {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+        
+        .blog-card__title a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .blog-card__title a:hover {
+            color: var(--primary);
+        }
+        
+        .blog-card__excerpt {
+            color: var(--gray);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        /* Featured post */
+        .featured-post {
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #1a2a32 0%, #0f1a20 100%);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+        }
+        
+        .featured-post__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .featured-post__image {
+            height: 100%;
+            min-height: 400px;
+        }
+        
+        .featured-post__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-post__content {
+            padding: 48px;
+            color: var(--white);
+        }
+        
+        .featured-post__tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .featured-post__title {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+        
+        .featured-post__excerpt {
+            opacity: 0.8;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        
+        /* Пагинация */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .page-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--white);
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .page-link.active,
+        .page-link:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        @media (max-width: 1024px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .featured-post__inner {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-post__image {
+                min-height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-post__content {
+                padding: 32px;
+            }
+            
+            .featured-post__title {
+                font-size: 24px;
+            }
+            
+            .search-form {
+                flex-direction: column;
+                border-radius: 24px;
+            }
+            
+            .search-form button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+    <div class="container">
+        <div class="header__inner">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/Logo/Logo.png" alt="СтройМастер" class="logo-img" onerror="this.style.display='none'">
+                    <span class="logo-text">Строй<span>Мастер</span></span>
+                </a>
+            </div>
+            
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О компании</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="projects.html">Проекты</a></li>
+                    <li><a href="blog.html">Блог</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header__actions">
+                <a href="tel:+380501234567" class="phone-link">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+38 (050) 123-45-67</span>
+                </a>
+                <button class="btn btn-primary btn-call" data-modal="callback">Заказать звонок</button>
+                <button class="mobile-menu-toggle" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <main>
+        <!-- Hero -->
+       <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=2070&auto=format'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="container">
+        <div class="hero__content">
+            <span class="hero__badge">Блог экспертов</span>
+            <h1>Полезные статьи<br>о строительстве</h1>
+            <p class="hero__desc">Советы профессионалов, новости рынка, вдохновение для вашего дома</p>
+        </div>
+    </div>
+    <div class="scroll-down">
+        <a href="#blog"><i class="fas fa-chevron-down"></i></a>
+    </div>
+</section>
+
+        <!-- Поиск и категории -->
+       <!-- Категории (фильтры) -->
+<section class="blog-header">
+    <div class="container">
+        <div class="blog-categories" data-aos="fade-up">
+            <button class="cat-btn active" data-cat="all">Все статьи</button>
+            <button class="cat-btn" data-cat="construction">Строительство</button>
+            <button class="cat-btn" data-cat="design">Дизайн</button>
+            <button class="cat-btn" data-cat="materials">Материалы</button>
+            <button class="cat-btn" data-cat="tips">Советы</button>
+        </div>
+    </div>
+</section>
+
+        <!-- Featured Post -->
+        <div class="container" id="featuredContainer">
+            <div class="featured-post" data-aos="fade-up" id="featuredPost"></div>
+        </div>
+
+        <!-- Блог сетка -->
+        <section class="blog-posts">
+            <div class="container">
+                <div class="blog-grid" id="blogGrid"></div>
+                
+                <div class="pagination" id="pagination"></div>
+            </div>
+        </section>
+
+        <!-- Подписка на новости -->
+        <section class="cta cta--skeuomorphic">
+            <div class="container">
+                <div class="cta__inner" data-aos="zoom-in">
+                    <h2>Будьте в курсе новостей</h2>
+                    <p>Подпишитесь на нашу рассылку и получайте полезные статьи первыми</p>
+                    <form class="cta__form">
+                        <div class="form-group">
+                            <input type="email" placeholder="Ваш Email" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large">Подписаться</button>
+                    </form>
+                    <p class="cta__note">Никакого спама, только полезный контент</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <div class="logo">
+                        <img src="images/logo-white.svg" alt="СтройМастер" class="logo-img" onerror="this.style.display='none'">
+                        <span class="logo-text">Строй<span>Мастер</span></span>
+                    </div>
+                    <p>Строим дома вашей мечты с 2009 года. Надёжно, качественно, в срок.</p>
+                    <div class="footer__social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer__col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="blog.html">Блог</a></li>
+                        <li><a href="contact.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Контакты</h4>
+                    <ul class="footer__contacts">
+                        <li><i class="fas fa-phone"></i> +38 (050) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@stroymaster.ua</li>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Киев, ул. Строительная, 15</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 СтройМастер. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модалки -->
+    <div class="modal" id="callbackModal">
+        <div class="modal__content">
+            <button class="modal__close">&times;</button>
+            <h3>Заказать звонок</h3>
+            <form>
+                <div class="form-group"><input type="text" placeholder="Ваше имя" required></div>
+                <div class="form-group"><input type="tel" placeholder="+38 (___) ___-__-__" required></div>
+                <button type="submit" class="btn btn-primary">Перезвоните мне</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/form-handler.js"></script>
+    
+    <script>
+        // Данные статей
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Как выбрать участок для строительства дома",
+                excerpt: "Разбираем ключевые моменты при выборе земли: геология, коммуникации, юридическая чистота, расположение и многое другое.",
+                content: "Полное содержание статьи...",
+                category: "construction",
+                date: "15 марта 2025",
+                readTime: "7 мин",
+                image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format",
+                featured: true,
+                author: "Александр Петренко",
+                authorTitle: "Главный архитектор"
+            },
+            {
+                id: 2,
+                title: "Современные материалы для строительства: что выбрать?",
+                excerpt: "Сравнение кирпича, газобетона, монолита и каркасных технологий. Плюсы, минусы, стоимость и сроки строительства.",
+                content: "Полное содержание статьи...",
+                category: "materials",
+                date: "28 февраля 2025",
+                readTime: "10 мин",
+                image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format",
+                featured: false,
+                author: "Михаил Шевченко",
+                authorTitle: "Главный инженер"
+            },
+            {
+                id: 3,
+                title: "Этапы строительства дома под ключ",
+                excerpt: "От фундамента до отделки — полный гид по строительству. Что нужно знать на каждом этапе и как контролировать качество.",
+                content: "Полное содержание статьи...",
+                category: "construction",
+                date: "10 февраля 2025",
+                readTime: "12 мин",
+                image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format",
+                featured: true,
+                author: "Александр Петренко",
+                authorTitle: "Главный архитектор"
+            },
+            {
+                id: 4,
+                title: "Тренды в дизайне интерьеров 2025",
+                excerpt: "Натуральные материалы, умный дом, экологичность и минимализм — главные направления в дизайне интерьеров в этом году.",
+                content: "Полное содержание статьи...",
+                category: "design",
+                date: "5 февраля 2025",
+                readTime: "6 мин",
+                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format",
+                featured: false,
+                author: "Ирина Ковальчук",
+                authorTitle: "Руководитель проектов"
+            },
+            {
+                id: 5,
+                title: "Как сэкономить на строительстве без потери качества",
+                excerpt: "Практические советы: выбор материалов, оптимизация проекта, контроль бюджета и работа с подрядчиками.",
+                content: "Полное содержание статьи...",
+                category: "tips",
+                date: "20 января 2025",
+                readTime: "8 мин",
+                image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format",
+                featured: false,
+                author: "Михаил Шевченко",
+                authorTitle: "Главный инженер"
+            },
+            {
+                id: 6,
+                title: "Умный дом: технологии для комфортной жизни",
+                excerpt: "Системы автоматизации, климат-контроль, безопасность и энергоэффективность. Что стоит внедрить в свой дом.",
+                content: "Полное содержание статьи...",
+                category: "design",
+                date: "15 января 2025",
+                readTime: "9 мин",
+                image: "https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=2070&auto=format",
+                featured: false,
+                author: "Ирина Ковальчук",
+                authorTitle: "Руководитель проектов"
+            },
+            {
+                id: 7,
+                title: "Фундамент: виды и особенности выбора",
+                excerpt: "Ленточный, плитный, свайный — какой фундамент подходит для вашего участка и типа дома.",
+                content: "Полное содержание статьи...",
+                category: "construction",
+                date: "5 января 2025",
+                readTime: "8 мин",
+                image: "https://images.unsplash.com/photo-1531834685032-c34bf0d84c1f?q=80&w=2070&auto=format",
+                featured: false,
+                author: "Михаил Шевченко",
+                authorTitle: "Главный инженер"
+            }
+        ];
+        
+        let currentCategory = 'all';
+        let currentSearch = '';
+        let currentPage = 1;
+        const postsPerPage = 6;
+        
+        function getFilteredPosts() {
+            let filtered = blogPosts;
+            
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(post => post.category === currentCategory);
+            }
+            
+            if (currentSearch) {
+                filtered = filtered.filter(post => 
+                    post.title.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    post.excerpt.toLowerCase().includes(currentSearch.toLowerCase())
+                );
+            }
+            
+            return filtered;
+        }
+        
+        function renderFeaturedPost() {
+            const featured = blogPosts.find(post => post.featured === true);
+            const container = document.getElementById('featuredPost');
+            
+            if (!featured || !container) return;
+            
+            const categoryText = getCategoryText(featured.category);
+            
+            container.innerHTML = `
+                <div class="featured-post__inner">
+                    <div class="featured-post__image">
+                        <img src="${featured.image}" alt="${featured.title}">
+                    </div>
+                    <div class="featured-post__content">
+                        <span class="featured-post__tag">${categoryText}</span>
+                        <h2 class="featured-post__title">${featured.title}</h2>
+                        <p class="featured-post__excerpt">${featured.excerpt}</p>
+                        <div style="display: flex; gap: 16px; margin-bottom: 20px; font-size: 14px; opacity: 0.7;">
+                            <span><i class="far fa-calendar"></i> ${featured.date}</span>
+                            <span><i class="far fa-clock"></i> ${featured.readTime}</span>
+                            <span><i class="far fa-user"></i> ${featured.author}</span>
+                        </div>
+                        <a href="blog-detail.html?id=${featured.id}" class="btn btn-primary">Читать статью</a>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function renderBlogGrid() {
+            const filtered = getFilteredPosts();
+            const start = (currentPage - 1) * postsPerPage;
+            const paginated = filtered.slice(start, start + postsPerPage);
+            const totalPages = Math.ceil(filtered.length / postsPerPage);
+            
+            const grid = document.getElementById('blogGrid');
+            if (!grid) return;
+            
+            grid.innerHTML = paginated.map(post => {
+                const categoryText = getCategoryText(post.category);
+                return `
+                    <div class="blog-card">
+                        <div class="blog-card__img">
+                            <img src="${post.image}" alt="${post.title}">
+                            <span class="blog-card__category">${categoryText}</span>
+                        </div>
+                        <div class="blog-card__info">
+                            <div class="blog-card__meta">
+                                <span><i class="far fa-calendar"></i> ${post.date}</span>
+                                <span><i class="far fa-clock"></i> ${post.readTime}</span>
+                            </div>
+                            <h3 class="blog-card__title">
+                                <a href="blog-detail.html?id=${post.id}">${post.title}</a>
+                            </h3>
+                            <p class="blog-card__excerpt">${post.excerpt.substring(0, 120)}${post.excerpt.length > 120 ? '...' : ''}</p>
+                            <a href="blog-detail.html?id=${post.id}" class="link-arrow">Читать далее <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            renderPagination(totalPages);
+        }
+        
+        function renderPagination(totalPages) {
+            const paginationContainer = document.getElementById('pagination');
+            if (!paginationContainer) return;
+            
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+            
+            let html = `<a href="#" class="page-link prev" data-page="prev">←</a>`;
+            
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<a href="#" class="page-link ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</a>`;
+            }
+            
+            html += `<a href="#" class="page-link next" data-page="next">→</a>`;
+            paginationContainer.innerHTML = html;
+            
+            paginationContainer.querySelectorAll('.page-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.getAttribute('data-page');
+                    if (page === 'prev') {
+                        if (currentPage > 1) currentPage--;
+                    } else if (page === 'next') {
+                        if (currentPage < totalPages) currentPage++;
+                    } else {
+                        currentPage = parseInt(page);
+                    }
+                    renderBlogGrid();
+                    window.scrollTo({ top: 500, behavior: 'smooth' });
+                });
+            });
+        }
+        
+        function getCategoryText(category) {
+            const categories = {
+                construction: '🏗️ Строительство',
+                design: '🎨 Дизайн',
+                materials: '🧱 Материалы',
+                tips: '💡 Советы'
+            };
+            return categories[category] || category;
+        }
+        
+        function initCategoryFilters() {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentCategory = btn.getAttribute('data-cat');
+                    currentPage = 1;
+                    renderBlogGrid();
+                });
+            });
+        }
+        
+        function initSearch() {
+            const searchForm = document.getElementById('searchForm');
+            const searchInput = document.getElementById('searchInput');
+            
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                currentSearch = searchInput.value.trim();
+                currentPage = 1;
+                renderBlogGrid();
+            });
+        }
+        
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        renderFeaturedPost();
+        renderBlogGrid();
+        initCategoryFilters();
+        initSearch();
+        
+        window.getCategoryText = getCategoryText;
+        // Обработчик поиска (исправленный)
+document.getElementById('searchBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    const searchTerm = document.getElementById('searchInput').value.trim();
+    currentSearch = searchTerm;
+    currentPage = 1;
+    renderBlogGrid();
+    
+    // Показываем сообщение, если ничего не найдено
+    const filtered = getFilteredPosts();
+    if (filtered.length === 0 && searchTerm !== '') {
+        const grid = document.getElementById('blogGrid');
+        grid.innerHTML = '<div style="text-align: center; grid-column: 1/-1; padding: 60px;"><p>По вашему запросу ничего не найдено</p></div>';
+    }
+});
+    </script>
+</body>
+</html>
